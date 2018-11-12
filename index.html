@@ -40,18 +40,18 @@ There is more to performance engineering than just testing. Done right, performa
 </div>
 
 <div>
-  <form class="user-info-form"> <!-- Need to at action and method attributes when database is name -->
+  <form class="user-info-form" id="formdata" action="saveDetails" method="POST"> <!-- Need to at action and method attributes when database is name -->
     <div class="form-group">
       <label>*Username: </label>
-      <input type ="text" name = "username" required class="form-control" >
+      <input type ="text" name = "username" class = "username" required class="form-control" >
     </div>
     <div class="form-group">
       <label>*Email:</label>
-      <input type = "email" class="email-input form-control" name = "email" required > 
+      <input type = "email" class="email-input form-control" class="emailUser" name = "email" required > 
     </div>
     <div class="form-group">
       <label>*Organization:</label>
-      <input type = "text" name ="organization" required class="form-control" >
+      <input type = "text" name ="organization" class="organizationUser" required class="form-control" >
     </div>
     <div class="form-group">
     <label>Mobile Number (optional)</label>
@@ -92,9 +92,27 @@ $(document).ready(function(){
       return;
     }
 
+var allData = $("#formdata").serialize();
+console.log("alldata is ::",allData);
+var username1 = $(".username").val();
+var email1 = $(".email-input").val();
+var organization1 = $(".organizationUser").val();
+var mobile1 = $(".mobile-num").val();
 
+// $.ajax({
+//   type:"POST",
+//   data:allData,
+//   url:"saveData"
+// })
+
+$.ajax({
+  type:"POST",
+  data:allData,
+  url:"saveData?username="+username1+"&email="+email1+"&organization="+organization1+"&mobile="+mobile1
+})
 
   });
+  
 
   window.validateEmail = function(emailInput){
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
