@@ -60,7 +60,7 @@ There is more to performance engineering than just testing. Done right, performa
     <button type = "button" class="btn btn-default save-user-info" >Save</button>
   </form>
 <center>  
-  <a href="./FirstPage.html">Take the Survey</a> || 
+  <a href="./FirstPage.html" id= "first">Take the Survey</a> || 
   <a href="./privacy.html">Read the Privacy Statement</a>
 </center>
 </div>
@@ -99,17 +99,36 @@ var email1 = $(".email-input").val();
 var organization1 = $(".organizationUser").val();
 var mobile1 = $(".mobile-num").val();
 
+// the ajax is working fine the commented part
 // $.ajax({
 //   type:"POST",
 //   data:allData,
-//   url:"saveData"
+//   url:"saveData?username="+username1+"&email="+email1+"&organization="+organization1+"&mobile="+mobile1
 // })
 
+//the ajax is end at the coomented portion below
+
+//only for testing
 $.ajax({
   type:"POST",
   data:allData,
-  url:"saveData?username="+username1+"&email="+email1+"&organization="+organization1+"&mobile="+mobile1
+  url:"saveData?username="+username1+"&email="+email1+"&organization="+organization1+"&mobile="+mobile1,
+  success : function(data){
+    console.log("data is ::",data);
+    if(data === "true"){
+      //console.log("done");
+      // $.ajax({
+      //   type:"GET",
+      //   url:"FirstPage.html",
+      //   dataType:"html"
+      // })
+      document.getElementById('first').click();
+
+    }
+  },
+
 })
+// end of testing
 
   });
   

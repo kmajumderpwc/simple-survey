@@ -7,10 +7,10 @@ var path = require ('path');
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "35.231.188.219",
   user: "root",
-  password: "root",
-  database: "kaustav"
+  password: "Pa$$word@1234",
+  database: "survey"
 });
 
 
@@ -59,21 +59,42 @@ app.post('/saveData',function(req,res){
   console.log("email is ",email);
   console.log("organization is ",organization);
   console.log("mobile is ",mobile);
+ // the code work start here
 
-  con.connect(function(err){
-    var insertSql = "INSERT into employee (username,email,organization,mobile) VALUES(?,?,?,?) ";
-     con.query(insertSql ,[username,email,organization,mobile], function(err,rows){
-         if (!err) {  
-             res.json(rows);  
-         }  
-         else {  
-             res.json(err);  
-         }  
+//   con.connect(function(err){
+//     console.log("connection is successfull");
+//     var insertSql = "INSERT into user (name,email,org,mobile) VALUES(?,?,?,?) ";
+//      con.query(insertSql ,[username,email,organization,mobile], function(err,rows){
+//          if (!err) {  
+//              res.json(rows);  
+//          }  
+//          else {  
+//              res.json(err);  
+//          }  
         
-     })
- });
+//      })
+//  });
 
-  res.send();
+// the code work fine end
+
+/// start of testing code
+con.connect(function(err){
+  console.log("connection is successfull");
+  var insertSql = "INSERT into user (name,email,org,mobile) VALUES(?,?,?,?) ";
+   con.query(insertSql ,[username,email,organization,mobile], function(err,rows){
+       if (!err) {  
+           //res.json(rows);  
+           res.status(200).json("true");
+       }  
+       else {  
+           res.json(err);  
+       }  
+      
+   })
+});
+
+/// end of testing code
+  //res.send();
 });
 
 app.use(express.static(path.join(__dirname,'public')));
